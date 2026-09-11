@@ -34,23 +34,23 @@ public class QuestionService {
             skills = getSkills(request.getSkillIds());
         }
 
-        Question ques = new Question();
+        Question question = new Question();
 
-        ques.setQuestionType(request.getQuestionType());
-        ques.setAptitudeCategory(request.getAptitudeCategory());
+        question.setQuestionType(request.getQuestionType());
+        question.setAptitudeCategory(request.getAptitudeCategory());
 
-        ques.setQuestionText(request.getQuestionText());
-        ques.setOptionA(request.getOptionA());
-        ques.setOptionB(request.getOptionB());
-        ques.setOptionC(request.getOptionC());
-        ques.setOptionD(request.getOptionD());
+        question.setQuestionText(request.getQuestionText());
+        question.setOptionA(request.getOptionA());
+        question.setOptionB(request.getOptionB());
+        question.setOptionC(request.getOptionC());
+        question.setOptionD(request.getOptionD());
 
-        ques.setCorrectAnswer(request.getCorrectAnswer().toUpperCase());
-        ques.setExplanation(request.getExplanation());
+        question.setCorrectAnswer(request.getCorrectAnswer().toUpperCase());
+        question.setExplanation(request.getExplanation());
 
-        ques.setSkills(skills);
+        question.setSkills(skills);
 
-        Question savedQuestion = questionRepository.save(ques);
+        Question savedQuestion = questionRepository.save(question);
         return toResponse(savedQuestion);
 
     }
@@ -153,7 +153,7 @@ public class QuestionService {
                 correctAnswer.equalsIgnoreCase("B") ||
                 correctAnswer.equalsIgnoreCase("C") ||
                 correctAnswer.equalsIgnoreCase("D"))) {
-            throw new ResourceNotFoundException("Correct answer must be A, B, C, or D");
+            throw new InvalidRequestException("Correct answer must be A, B, C, or D");
         }
     }
 

@@ -1,37 +1,58 @@
 package com.nikko.backend.controller;
 
+import com.nikko.backend.dto.QuestionRequestDto;
+import com.nikko.backend.dto.QuestionResponseDto;
 import com.nikko.backend.entities.Question;
 import com.nikko.backend.service.QuestionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/placevision")
+@RequestMapping("/api/questions")
 @RequiredArgsConstructor
 public class QuestionController {
 
     private final QuestionService questionService;
 
-//    @PostMapping("/questions")
-//    public Question createQuestion(@RequestBody Question question){
-//        return questionService.createQuestion(question);
-//    }
-//
-//    @GetMapping("/questions")
-//    public List<Question> getAllQuestions() {
-//        return questionService.getAllQuestions();
-//    }
-//
-//    @GetMapping("/question/{id}")
-//    public Question getQuestionById(@PathVariable UUID id){
-//        return questionService.getQuestionById(id);
-//    }
-//
-//    @DeleteMapping("/question/{id}")
-//    public void deleteQuestionById(@PathVariable UUID id){
-//        questionService.deleteQuestion(id);
-//    }
+    @PostMapping
+    public ResponseEntity<QuestionResponseDto>  createQuestion(
+            @Valid @RequestBody QuestionRequestDto request) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(questionService.createQuestion(request));
+    }
+
+
+    @GetMapping
+    public ResponseEntity<List<QuestionResponseDto>> getAllQuestions() {
+        return ResponseEntity.ok(questionService.getAllQuestions());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<QuestionResponseDto> getQuestionById(@PathVariable UUID id){
+        return ResponseEntity.ok(questionService.getQuestionById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<QuestionResponseDto> updateQuestion(
+            @PathVariable UUID id,
+            @Valid @RequestBody QuestionRequestDto request) {
+
+        return ResponseEntity.ok(
+                questionService.updateQuestion(id, request)
+        );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteQuestionById(@PathVariable UUID id){
+        questionService.deleteQuestion(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }
