@@ -1,7 +1,7 @@
 package com.nikko.backend.controller;
 
-import com.nikko.backend.dto.SkillRequestDto;
-import com.nikko.backend.dto.SkillResponseDto;
+import com.nikko.backend.dto.skill.SkillRequestDto;
+import com.nikko.backend.dto.skill.SkillResponseDto;
 import com.nikko.backend.service.SkillService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

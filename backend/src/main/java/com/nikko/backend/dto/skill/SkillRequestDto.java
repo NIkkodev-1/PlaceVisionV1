@@ -1,4 +1,4 @@
-package com.nikko.backend.dto;
+package com.nikko.backend.dto.skill;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

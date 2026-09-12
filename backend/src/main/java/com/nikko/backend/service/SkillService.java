@@ -1,7 +1,7 @@
 package com.nikko.backend.service;
 
-import com.nikko.backend.dto.SkillRequestDto;
-import com.nikko.backend.dto.SkillResponseDto;
+import com.nikko.backend.dto.skill.SkillRequestDto;
+import com.nikko.backend.dto.skill.SkillResponseDto;
 import com.nikko.backend.entities.Skill;
 import com.nikko.backend.repositories.SkillRepository;
 import lombok.RequiredArgsConstructor;

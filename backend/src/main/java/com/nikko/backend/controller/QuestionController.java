@@ -1,8 +1,7 @@
 package com.nikko.backend.controller;
 
-import com.nikko.backend.dto.QuestionRequestDto;
-import com.nikko.backend.dto.QuestionResponseDto;
-import com.nikko.backend.entities.Question;
+import com.nikko.backend.dto.question.QuestionRequestDto;
+import com.nikko.backend.dto.question.QuestionResponseDto;
 import com.nikko.backend.service.QuestionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

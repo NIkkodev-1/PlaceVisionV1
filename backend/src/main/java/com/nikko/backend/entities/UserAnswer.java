@@ -2,8 +2,6 @@ package com.nikko.backend.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-
 import java.util.UUID;
 
 @Entity
@@ -28,5 +26,6 @@ public class UserAnswer {
     @Column(nullable = false)
     private String selectedAnswer;
 
+    @Column(nullable = false)
     private Boolean correct;
 }

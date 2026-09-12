@@ -1,4 +1,4 @@
-package com.nikko.backend.dto;
+package com.nikko.backend.dto.skill;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

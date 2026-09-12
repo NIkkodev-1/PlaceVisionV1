@@ -1,7 +1,7 @@
 package com.nikko.backend.service;
 
-import com.nikko.backend.dto.QuestionRequestDto;
-import com.nikko.backend.dto.QuestionResponseDto;
+import com.nikko.backend.dto.question.QuestionRequestDto;
+import com.nikko.backend.dto.question.QuestionResponseDto;
 import com.nikko.backend.entities.Question;
 import com.nikko.backend.entities.Skill;
 import com.nikko.backend.enums.QuestionType;
@@ -143,7 +143,10 @@ public class QuestionService {
                         "Skill IDs should not be provided for an aptitude question"
                 );
             }
+        } else {
+            throw new InvalidRequestException("questionType must be SKILL or APTITUDE");
         }
+
     }
 
     private void validateCorrectAnswer(String correctAnswer) {
