@@ -1,9 +1,14 @@
 package com.nikko.backend.entities;
 
+import com.nikko.backend.enums.ReportStatus;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Entity
@@ -17,36 +22,56 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "quiz_attempt_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "quiz_attempt_id", nullable = false, unique = true)
     private QuizAttempt quizAttempt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ReportStatus status;
 
     private Double overallScore;
 
-    @Column(columnDefinition = "TEXT")
-    private String strengths;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private Map<String, Double> skillBreakdown;
 
-    @Column(columnDefinition = "TEXT")
-    private String weaknesses;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private Map<String, Double> aptitudeBreakdown;
 
-    @Column(columnDefinition = "TEXT")
-    private String topicsToImprove;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> strengths;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> weaknesses;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> topicsToImprove;
 
     @Column(columnDefinition = "TEXT")
     private String recommendations;
 
-    @Column(columnDefinition = "TEXT")
-    private String recommendedSkills;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> recommendedSkills;
 
     private String recommendedDifficulty;
 
     @Column(columnDefinition = "TEXT")
     private String suggestedDirection;
 
+    @Column(columnDefinition = "TEXT")
+    private String errorMessage;
+
     private LocalDateTime generatedAt;
 
     @PrePersist
-    public void prePersist() {
+    @PreUpdate
+    public void setGeneratedAt() {
         generatedAt = LocalDateTime.now();
     }
 }

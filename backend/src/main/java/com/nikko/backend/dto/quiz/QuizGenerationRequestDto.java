@@ -17,9 +17,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class QuizGenerationRequestDto {
 
-    @NotNull(message = "userId is required")
-    private UUID id;
-
     private Set<UUID> skillIds;
 
     private Set<AptitudeCategory> aptitudeCategories;

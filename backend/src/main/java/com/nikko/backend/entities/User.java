@@ -1,5 +1,6 @@
 package com.nikko.backend.entities;
 
+import com.nikko.backend.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,10 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
     @OneToMany(mappedBy = "user")
     private List<QuizAttempt> quizAttempts = new ArrayList<>();

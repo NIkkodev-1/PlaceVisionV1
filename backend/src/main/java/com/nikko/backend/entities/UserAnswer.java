@@ -27,5 +27,5 @@ public class UserAnswer {
     private String selectedAnswer;
 
     @Column(nullable = false)
-    private Boolean correct;
+    private boolean correct;
 }

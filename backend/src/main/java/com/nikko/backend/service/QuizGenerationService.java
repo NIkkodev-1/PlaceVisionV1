@@ -29,7 +29,7 @@ public class QuizGenerationService {
     private final UserRepository userRepository;
 
     @Transactional
-    public QuizAttemptResponseDto generateQuiz(QuizGenerationRequestDto request) {
+    public QuizAttemptResponseDto generateQuiz(UUID userId, QuizGenerationRequestDto request) {
         Set<UUID> skillIds = request.getSkillIds() != null ? request.getSkillIds(): Set.of();
         Set<AptitudeCategory> categories = request.getAptitudeCategories() != null
                 ? request.getAptitudeCategories() : Set.of();
@@ -39,9 +39,9 @@ public class QuizGenerationService {
                     "At least one skill or aptitude category must be selected");
         }
 
-        User user = userRepository.findById(request.getId())
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "User not found: " + request.getId()));
+                        "User not found: " + userId));
 
         Set<Skill> skills = skillIds.isEmpty() ? Set.of() : new HashSet<>(skillRepository.findAllById(skillIds));
 
